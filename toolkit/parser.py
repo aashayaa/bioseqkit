@@ -1,6 +1,5 @@
 """
 parser.py
-=========
 FASTA/FASTQ I/O built on top of Biopython's SeqIO.
 """
 
@@ -16,7 +15,6 @@ FASTQ_EXTENSIONS = {".fq", ".fastq"}
 
 
 def guess_format(path: str) -> str:
-    """Guess 'fasta' or 'fastq' from a file extension (handles .gz)."""
     p = Path(path)
     suffixes = [s.lower() for s in p.suffixes]
     ext = suffixes[-2] if suffixes and suffixes[-1] == ".gz" and len(suffixes) > 1 else (suffixes[-1] if suffixes else "")
@@ -29,7 +27,6 @@ def guess_format(path: str) -> str:
 
 
 def read_sequences(path: str, format: Optional[str] = None) -> Iterator[SeqRecord]:
-    """Lazily iterate over sequence records in a FASTA or FASTQ file."""
     fmt = format or guess_format(path)
 
     if path.endswith(".gz"):
@@ -41,7 +38,6 @@ def read_sequences(path: str, format: Optional[str] = None) -> Iterator[SeqRecor
 
 
 def count_sequences(path: str, format: Optional[str] = None) -> int:
-    """Count sequences without holding them all in memory."""
     return sum(1 for _ in read_sequences(path, format))
 
 
