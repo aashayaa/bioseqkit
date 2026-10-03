@@ -42,6 +42,5 @@ def count_sequences(path: str, format: Optional[str] = None) -> int:
 
 
 def write_sequences(records: Iterable[SeqRecord], path: str, format: Optional[str] = None) -> int:
-    """Write an iterable of SeqRecords to a file. Returns count written."""
     fmt = format or guess_format(path)
     return SeqIO.write(records, path, fmt)
